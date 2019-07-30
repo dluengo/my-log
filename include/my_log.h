@@ -2,12 +2,17 @@
 #define __MY_LOG__
 
 #include <stdio.h>
+#include <stdarg.h>
 
+static inline void Log_msg(const char *format, ...) {
 #if DEBUG
-    #define Log_msg(format, ...) printf("%s: " format "\n", __func__, __VA_ARGS__)
-#else
-    #define Log_msg(format, ...) {}
+    va_list args;
+
+    va_start(args, format);
+    fprintf(stderr, format, args);
+    va_end(args);
 #endif
+}
 
 #endif
 
