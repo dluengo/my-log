@@ -4,15 +4,11 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-static inline void Log_msg(const char *format, ...) {
-#if DEBUG
-    va_list args;
-
-    va_start(args, format);
-    fprintf(stderr, format, args);
-    va_end(args);
+#ifdef DEBUG
+    #define Log_msg(format, ...) fprintf(stderr, "%s: " format "\n", __func__, ##__VA_ARGS__)
+#else
+    #define Log_msg(format, ...) {}
 #endif
-}
 
 #endif
 
